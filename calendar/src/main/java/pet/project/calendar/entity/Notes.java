@@ -1,15 +1,14 @@
-package pet.project.calendar.Entity;
+package pet.project.calendar.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "Notes")
+@Table(name = "notes")
 public class Notes {
 
     @Id

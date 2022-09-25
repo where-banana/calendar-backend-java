@@ -1,4 +1,4 @@
-package pet.project.calendar.Entity;
+package pet.project.calendar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@Table(name = "Events")
+@Table(name = "events")
 public class Events {
 
     @Id

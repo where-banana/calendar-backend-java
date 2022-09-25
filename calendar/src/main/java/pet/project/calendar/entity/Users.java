@@ -1,4 +1,4 @@
-package pet.project.calendar.Entity;
+package pet.project.calendar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@Table(name = "Users")
+@Table(name = "users")
 public class Users {
 
     @Id
@@ -25,7 +25,7 @@ public class Users {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private Collection<Workspaces> users;
 
-    @OneToOne(mappedBy = "credUserId")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Credentials credentials;
 
     public Users() {
