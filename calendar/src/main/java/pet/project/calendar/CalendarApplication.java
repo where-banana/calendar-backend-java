@@ -28,26 +28,26 @@ public class CalendarApplication {
 		return args -> {
 			//TODO Test delete method for all Repos
 //-------------------------------------Users-------------------
-//			Optional<Users> us1 = userRepository.findById(5);
+//			Optional<Users> us1 = userRepository.findUsersById(5);
 //			us1.ifPresent(value -> log.info(value.toString()));
 //
 //			Iterable<Users> us2 = userRepository.findAll();
 //			List<Users> us2res = (List<Users>) us2;
 //			log.info(us2res.toString());
 //
-//			Iterable<Users> us3 = userRepository.findByName("Danil");
+//			Iterable<Users> us3 = userRepository.findUsersByName("Danil");
 //			List<Users> us3res = (List<Users>) us3;
 //			log.info(us3res.toString());
 
 //---------------------------------Credentials------------------
 
-//			Optional<Credentials> cred1 = credentialsRepository.findById(2);
+//			Optional<Credentials> cred1 = credentialsRepository.findCredentialsById(2);
 //			cred1.ifPresent(value -> log.info(value.toString()));
 
-//			Optional<Credentials> cred2 = credentialsRepository.findByEmail("arteic4@yandex.ru");
+//			Optional<Credentials> cred2 = credentialsRepository.findCredentialsByEmail("arteic4@yandex.ru");
 //			cred2.ifPresent(value -> log.info(value.toString()));
 
-//			Optional<Credentials> cred3 = credentialsRepository.findByUserId(5);
+//			Optional<Credentials> cred3 = credentialsRepository.findCredentialsByUserId(5);
 //			cred3.ifPresent(value -> log.info(value.toString()));
 
 //			Iterable<Credentials> cred4 = credentialsRepository.findAll();
@@ -56,7 +56,7 @@ public class CalendarApplication {
 
 
 //-------------------------------------Workspaces------------
-//			Optional<Workspaces> work1 = workspacesRepository.findById(3);
+//			Optional<Workspaces> work1 = workspacesRepository.findWorkspacesById(3);
 //			work1.ifPresent(value -> log.info(value.toString()));
 
 //			Iterable<Workspaces> work2 = workspacesRepository.findWorkspacesByName("Study");
@@ -68,7 +68,7 @@ public class CalendarApplication {
 //			log.info(work3res.toString());
 
 //------------------------------------Events---------------------------------
-//			Optional<Events> ev1 = eventsRepository.findById(1);
+//			Optional<Events> ev1 = eventsRepository.findEventsById(1);
 //			ev1.ifPresent(value -> log.info(value.toString()));
 
 //			Iterable<Events> ev2 = eventsRepository.findEventsByTitle("JavaTasks");
@@ -80,7 +80,7 @@ public class CalendarApplication {
 //			log.info(ev3res.toString());
 
 //--------------------------------------Notes------------------------------
-//			Optional<Notes> note1 = notesRepository.findById(1);
+//			Optional<Notes> note1 = notesRepository.findNotesById(1);
 //			note1.ifPresent(value -> log.info(value.toString()));
 
 //			Iterable<Notes> note2 = notesRepository.findNotesByDescription("lab1");

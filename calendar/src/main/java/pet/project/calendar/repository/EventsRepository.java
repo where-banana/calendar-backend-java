@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface EventsRepository extends CrudRepository<Events, Integer> {
 
-    Optional<Events> findById(Integer integer);
+    Optional<Events> findEventsById(Integer integer);
 
     Iterable<Events> findEventsByTitle(String name);
 

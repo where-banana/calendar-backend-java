@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface WorkspacesRepository extends CrudRepository<Workspaces, Integer> {
 
-    Optional<Workspaces> findById(Integer integer);
+    Optional<Workspaces> findWorkspacesById(Integer integer);
 
     Iterable<Workspaces> findWorkspacesByName(String string);
 
