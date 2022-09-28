@@ -1,5 +1,6 @@
 package pet.project.calendar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,31 +10,31 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "credentials")
-public class Credentials {
+public class Credential {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    //TODO may be need rename into user_id
+    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User userInfo;
 
-    public Credentials() {
+    public Credential() {
     }
 
-    public Credentials(String email, String password, Users user) {
+    public Credential(String email, String password, User userInfo) {
         this.email = email;
         this.password = password;
-        this.user = user;
+        this.userInfo = userInfo;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Credentials {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", user=" + user +
+                ", userInfo=" + userInfo +
                 '}';
     }
 }

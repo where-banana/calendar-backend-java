@@ -20,75 +20,74 @@ public class CalendarApplication {
 		SpringApplication.run(CalendarApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner test(UsersRepository userRepository,
-								  CredentialsRepository credentialsRepository,
-								  WorkspacesRepository workspacesRepository,
-								  EventsRepository eventsRepository,
-								  NotesRepository notesRepository){
+	public CommandLineRunner test(UserRepository userRepository,
+								  WorkspaceRepository workspaceRepository,
+								  EventRepository eventRepository,
+								  NoteRepository noteRepository){
 		return args -> {
 			//TODO Test delete method for all Repos
 //-------------------------------------Users-------------------
-//			Optional<Users> us1 = userRepository.findUsersById(5);
+//			Optional<User> us1 = userRepository.findUserById(5);
 //			us1.ifPresent(value -> log.info(value.toString()));
 //
-//			Iterable<Users> us2 = userRepository.findAll();
-//			List<Users> us2res = (List<Users>) us2;
+//			Iterable<User> us2 = userRepository.findAll();
+//			List<User> us2res = (List<User>) us2;
 //			log.info(us2res.toString());
 //
-//			Iterable<Users> us3 = userRepository.findUsersByName("Danil");
-//			List<Users> us3res = (List<Users>) us3;
+//			Iterable<User> us3 = userRepository.findUsersByName("Danil");
+//			List<User> us3res = (List<User>) us3;
 //			log.info(us3res.toString());
 
 //---------------------------------Credentials------------------
 
-//			Optional<Credentials> cred1 = credentialsRepository.findCredentialsById(2);
+//			Optional<Credential> cred1 = credentialRepository.findCredentialsById(2);
 //			cred1.ifPresent(value -> log.info(value.toString()));
-
-//			Optional<Credentials> cred2 = credentialsRepository.findCredentialsByEmail("arteic4@yandex.ru");
+//
+//			Optional<Credential> cred2 = credentialRepository.findCredentialsByEmail("arteic4@yandex.ru");
 //			cred2.ifPresent(value -> log.info(value.toString()));
-
-//			Optional<Credentials> cred3 = credentialsRepository.findCredentialsByUserId(5);
+//
+//			Optional<Credential> cred3 = credentialRepository.findCredentialsByUserId(5);
 //			cred3.ifPresent(value -> log.info(value.toString()));
-
-//			Iterable<Credentials> cred4 = credentialsRepository.findAll();
-//			List<Credentials> cred4res = (List<Credentials>) cred4;
+//
+//			Iterable<Credential> cred4 = credentialRepository.findAll();
+//			List<Credential> cred4res = (List<Credential>) cred4;
 //			log.info(cred4res.toString());
 
 
 //-------------------------------------Workspaces------------
-//			Optional<Workspaces> work1 = workspacesRepository.findWorkspacesById(3);
+//			Optional<Workspace> work1 = workspaceRepository.findWorkspaceById(3);
 //			work1.ifPresent(value -> log.info(value.toString()));
-
-//			Iterable<Workspaces> work2 = workspacesRepository.findWorkspacesByName("Study");
-//			List<Workspaces> work2res = (List<Workspaces>) work2;
+//
+//			Iterable<Workspace> work2 = workspaceRepository.findWorkspacesByName("Study");
+//			List<Workspace> work2res = (List<Workspace>) work2;
 //			log.info(work2res.toString());
-
-//			Iterable<Workspaces> work3 = workspacesRepository.findWorkspacesByUserId(7);
-//			List<Workspaces> work3res = (List<Workspaces>) work3;
+//
+//			Iterable<Workspace> work3 = workspaceRepository.findWorkspacesByUserId(7);
+//			List<Workspace> work3res = (List<Workspace>) work3;
 //			log.info(work3res.toString());
 
 //------------------------------------Events---------------------------------
-//			Optional<Events> ev1 = eventsRepository.findEventsById(1);
+//			Optional<Event> ev1 = eventRepository.findEventById(1);
 //			ev1.ifPresent(value -> log.info(value.toString()));
-
-//			Iterable<Events> ev2 = eventsRepository.findEventsByTitle("JavaTasks");
-//			List<Events> ev2res = (List<Events>) ev2;
+//
+//			Iterable<Event> ev2 = eventRepository.findEventsByTitle("JavaTasks");
+//			List<Event> ev2res = (List<Event>) ev2;
 //			log.info(ev2res.toString());
-
-//			Iterable<Events> ev3 = eventsRepository.findEventsByWorkspacesId(3);
-//			List<Events> ev3res = (List<Events>) ev3;
+//
+//			Iterable<Event> ev3 = eventRepository.findEventsByWorkspacesId(3);
+//			List<Event> ev3res = (List<Event>) ev3;
 //			log.info(ev3res.toString());
 
 //--------------------------------------Notes------------------------------
-//			Optional<Notes> note1 = notesRepository.findNotesById(1);
+//			Optional<Note> note1 = noteRepository.findNoteById(1);
 //			note1.ifPresent(value -> log.info(value.toString()));
-
-//			Iterable<Notes> note2 = notesRepository.findNotesByDescription("lab1");
-//			List<Notes> note2res = (List<Notes>) note2;
+//
+//			Iterable<Note> note2 = noteRepository.findNotesByDescription("lab1");
+//			List<Note> note2res = (List<Note>) note2;
 //			log.info(note2res.toString());
-
-//			Iterable<Notes> note3 = notesRepository.findNotesByEventId(3);
-//			List<Notes> note3res = (List<Notes>) note3;
+//
+//			Iterable<Note> note3 = noteRepository.findNotesByEventId(3);
+//			List<Note> note3res = (List<Note>) note3;
 //			log.info(note3res.toString());
 		};
 

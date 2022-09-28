@@ -11,7 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Table(name = "users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,15 +23,16 @@ public class Users {
 
     @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-    private Collection<Workspaces> users;
+    private Collection<Workspace> usersWorkspaces;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Credentials credentials;
+    @JsonIgnore
+    @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)
+    private Credential credentials;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String name) {
+    public User(String name) {
         this.name = name;
     }
 

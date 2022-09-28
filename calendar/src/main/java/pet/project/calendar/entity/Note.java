@@ -1,5 +1,6 @@
 package pet.project.calendar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "notes")
-public class Notes {
+public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +20,15 @@ public class Notes {
     @Column(name = "description", length = 100, nullable = false)
     private String description;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
-    private Events eventId;
+    private Event eventId;
 
-    public Notes() {
+    public Note() {
     }
 
-    public Notes(String description, Events eventId) {
+    public Note(String description, Event eventId) {
         this.description = description;
         this.eventId = eventId;
     }

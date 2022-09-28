@@ -11,7 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Table(name = "workspaces")
-public class Workspaces {
+public class Workspace {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,18 +21,19 @@ public class Workspaces {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Users userId;
+    private User userId;
 
     @JsonIgnore
     @OneToMany(mappedBy = "workspacesId", cascade = CascadeType.ALL)
-    private Collection<Events> workspaces;
+    private Collection<Event> eventsIntoWorkspaces;
 
-    public Workspaces() {
+    public Workspace() {
     }
 
-    public Workspaces(String name, Users userId) {
+    public Workspace(String name, User userId) {
         this.name = name;
         this.userId = userId;
     }
