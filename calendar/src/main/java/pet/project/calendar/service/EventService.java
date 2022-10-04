@@ -12,7 +12,7 @@ public interface EventService {
 
     List<Event> findEventsByWorkspacesId(Integer id);
 
-    Event addEvent(EventDto eventDto);
+    Event add(EventDto eventDto);
 
     void updateEvent(Integer id, String title);
 

@@ -2,6 +2,7 @@ package pet.project.calendar.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/workspaces")
+@RequestMapping("/entity-management/workspaces")
 public class WorkspaceController {
 
     private WorkspaceService workspacesService;
@@ -33,6 +34,7 @@ public class WorkspaceController {
         }
     }
 
+    @Deprecated
     @GetMapping("/findWorkspacesByName/{name}")
     public ResponseEntity<List<Workspace>> findWorkspacesByName(@PathVariable("name") String name){
         try{
@@ -43,6 +45,7 @@ public class WorkspaceController {
         }
     }
 
+    @Deprecated
     @GetMapping("/findWorkspacesByUserId/{userId}")
     public ResponseEntity<List<Workspace>> findWorkspacesByUserId(@PathVariable("userId") Integer userId){
         try {
@@ -53,11 +56,13 @@ public class WorkspaceController {
         }
     }
 
-    @PostMapping(path = "/addWorkspace", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Workspace> addWorkspace(@RequestBody WorkspaceDto workspaceDto){
+    @PostMapping(path = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Workspace> add(@RequestBody WorkspaceDto workspaceDto){
         try {
-            Workspace workspace = workspacesService.addWorkspace(workspaceDto);
-            return new ResponseEntity<>(workspace, HttpStatus.OK);
+            Workspace workspace = workspacesService.add(workspaceDto);
+            return new ResponseEntity<>(workspace, HttpStatus.CREATED);
         }catch (WorkspaceNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class WorkspaceDto {
-    private Integer id;
     private String name;
     private Integer userId;
 }

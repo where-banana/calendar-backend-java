@@ -13,7 +13,7 @@ public interface NoteService {
 
     List<Note> findNotesByEventId(Integer eventId);
 
-    Note addNote(NoteDto noteDto);
+    Note add(NoteDto noteDto);
 
     void updateNote(Integer id, String description);
 

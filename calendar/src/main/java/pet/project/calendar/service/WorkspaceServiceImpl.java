@@ -41,12 +41,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     @Override
-    public Workspace addWorkspace(WorkspaceDto workspaceDto) {
+    public Workspace add(WorkspaceDto workspaceDto) {
         String name = workspaceDto.getName();
         Integer userId = workspaceDto.getUserId();
 
         User user = userService.findUserById(userId);
         Workspace workspace = new Workspace(name, user);
+        workspacesRepository.save(workspace);
         return workspace;
     }
 

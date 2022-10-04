@@ -1,6 +1,8 @@
 package pet.project.calendar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +16,7 @@ import java.util.Collection;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -23,7 +25,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-    private Collection<Workspace> usersWorkspaces;
+    private Collection<Workspace> workspaces;
 
     @JsonIgnore
     @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)

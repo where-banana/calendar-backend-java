@@ -2,6 +2,7 @@ package pet.project.calendar.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/notes")
+@RequestMapping("/entity-management")
 public class NoteController {
 
     private NoteService notesService;
@@ -24,7 +25,7 @@ public class NoteController {
         this.notesService = notesService;
     }
 
-    @GetMapping("/findNoteById/{id}")
+    @GetMapping("/notes/{id}")
     public ResponseEntity<Note> findNotesById(@PathVariable("id") Integer id){
         try{
             return new ResponseEntity<>(notesService.findNoteById(id), HttpStatus.OK);
@@ -33,7 +34,8 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/findNotesByDescription/{description}")
+    @Deprecated
+    @GetMapping("/notes/{description}")
     public ResponseEntity<List<Note>> findNotesByDescription(@PathVariable("description") String description){
         try {
             List<Note> notesList = notesService.findNotesByDescription(description);
@@ -43,7 +45,8 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/findNotesByEventId/{eventId}")
+    @Deprecated
+    @GetMapping("/notes/{eventId}")
     public ResponseEntity<List<Note>> findNotesByEventId(@PathVariable("eventId") Integer eventId){
         try {
             List<Note> notesList = notesService.findNotesByEventId(eventId);
@@ -53,23 +56,20 @@ public class NoteController {
         }
     }
 
-    @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Note> addNote(@RequestBody NoteDto noteDto){
-        try{
-            Note note = notesService.addNote(noteDto);
-            return new ResponseEntity<>(note, HttpStatus.OK);
-        }catch (NoteNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+    @PostMapping(path = "/notes",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Note> add(@RequestBody NoteDto noteDto){
+        Note note = notesService.add(noteDto);
+        return new ResponseEntity<>(note, HttpStatus.CREATED);
     }
 
-//TODO update note
-    @PutMapping("/updateNote/{id}")
+    @PutMapping("/notes/{id}")
     public void updateNote(@PathVariable Integer id, @RequestBody Map<String, String> json){
         notesService.updateNote(id, json.get("description"));
     }
 
-    @DeleteMapping("/deleteNotesById/{id}")
+    @DeleteMapping("/notes/{id}")
     public ResponseEntity<Note> deleteNotesById(@PathVariable("id") Integer id){
         try {
             notesService.deleteNotesById(id);

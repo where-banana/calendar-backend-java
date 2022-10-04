@@ -41,12 +41,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event addEvent(EventDto eventDto) {
+    public Event add(EventDto eventDto) {
         String title = eventDto.getTitle();
         Integer workId = eventDto.getWorkspaceId();
 
         Workspace workspace = workspaceService.findWorkspaceById(workId);
         Event event = new Event(title, workspace);
+        eventsRepository.save(event);
         return event;
     }
 

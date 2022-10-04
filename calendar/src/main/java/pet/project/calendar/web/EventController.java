@@ -1,7 +1,10 @@
 package pet.project.calendar.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/entity-management")
 public class EventController {
 
     private EventService eventsService;
@@ -24,7 +27,7 @@ public class EventController {
         this.eventsService = eventsService;
     }
 
-    @GetMapping("/findEventById/{id}")
+    @GetMapping("/events/{id}")
     public ResponseEntity<Event> findEventsById(@PathVariable("id") Integer id){
         try{
             return new ResponseEntity<>(eventsService.findEventById(id), HttpStatus.OK);
@@ -33,7 +36,8 @@ public class EventController {
         }
     }
 
-    @GetMapping("/findEventsByTitle/{title}")
+    @Deprecated
+    @GetMapping("/events/{title}")
     public ResponseEntity<List<Event>> findEventsByTitle(@PathVariable("title") String title){
         try{
             List<Event> eventsList = eventsService.findEventsByTitle(title);
@@ -43,7 +47,8 @@ public class EventController {
         }
     }
 
-    @GetMapping("/findEventsByWorkspacesId/{id}")
+    @Deprecated
+    @GetMapping("/events{id}")
     public ResponseEntity<List<Event>> findEventsByWorkspacesId(@PathVariable("id") Integer id){
         try {
             List<Event> eventsList = eventsService.findEventsByWorkspacesId(id);
@@ -53,22 +58,20 @@ public class EventController {
         }
     }
 
-    @PostMapping(path = "/addEvent", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Event> addEvent(@RequestBody EventDto eventDto){
-        try{
-            Event event = eventsService.addEvent(eventDto);
-            return new ResponseEntity<>(event, HttpStatus.OK);
-        }catch (EventNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+    @PostMapping(path = "/events",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Event> add(@RequestBody EventDto eventDto){
+        Event event = eventsService.add(eventDto);
+        return new ResponseEntity<>(event, HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateEvent/{id}")
+    @PutMapping("/events/{id}")
     public void updateEvent(@PathVariable Integer id, @RequestBody Map<String, String> json){
         eventsService.updateEvent(id, json.get("title"));
     }
 
-    @DeleteMapping("/deleteEventsById/{id}")
+    @DeleteMapping("/events/{id}")
     public ResponseEntity<Event> deleteEventsById(@PathVariable("id") Integer id){
         try{
             eventsService.deleteEventsById(id);

@@ -43,12 +43,13 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note addNote(NoteDto noteDto) {
+    public Note add(NoteDto noteDto) {
         String description = noteDto.getDescription();
         Integer eventId = noteDto.getEventId();
 
         Event event = eventService.findEventById(eventId);
         Note note = new Note(description, event);
+        notesRepository.save(note);
         return note;
     }
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -28,7 +28,7 @@ public class Event {
 
     @JsonIgnore
     @OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL)
-    private Collection<Note> notesIntoEvents;
+    private Collection<Note> notes;
 
     public Event() {
     }

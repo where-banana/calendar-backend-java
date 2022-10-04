@@ -12,7 +12,7 @@ public interface WorkspaceService {
 
     List<Workspace> findWorkspacesByUserId(Integer id);
 
-    Workspace addWorkspace(WorkspaceDto workspaceDto);
+    Workspace add(WorkspaceDto workspaceDto);
 
     void updateWorkspace(Integer id, String name);
 

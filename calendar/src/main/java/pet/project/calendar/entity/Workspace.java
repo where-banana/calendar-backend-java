@@ -14,7 +14,7 @@ import java.util.Collection;
 public class Workspace {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -28,7 +28,7 @@ public class Workspace {
 
     @JsonIgnore
     @OneToMany(mappedBy = "workspacesId", cascade = CascadeType.ALL)
-    private Collection<Event> eventsIntoWorkspaces;
+    private Collection<Event> events;
 
     public Workspace() {
     }

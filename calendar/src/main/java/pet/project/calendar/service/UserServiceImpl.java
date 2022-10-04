@@ -2,6 +2,7 @@ package pet.project.calendar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pet.project.calendar.dto.UserDto;
 import pet.project.calendar.entity.User;
 import pet.project.calendar.exception.UserNotFoundException;
 import pet.project.calendar.repository.UserRepository;
@@ -33,6 +34,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return (List<User>) usersRepository.findAll();
+    }
+
+    @Override
+    public User add(UserDto userDto) {
+        User user = new User(userDto.getName());
+        usersRepository.save(user);
+        return user;
     }
 
     @Override
