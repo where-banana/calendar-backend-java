@@ -1,8 +1,6 @@
 package pet.project.calendar.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import pet.project.calendar.entity.Event;
 import pet.project.calendar.exception.EventNotFoundException;
 import pet.project.calendar.service.EventService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,28 +33,6 @@ public class EventController {
         }
     }
 
-    @Deprecated
-    @GetMapping("/events/{title}")
-    public ResponseEntity<List<Event>> findEventsByTitle(@PathVariable("title") String title){
-        try{
-            List<Event> eventsList = eventsService.findEventsByTitle(title);
-            return new ResponseEntity<>(eventsList, HttpStatus.OK);
-        }catch (EventNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @GetMapping("/events{id}")
-    public ResponseEntity<List<Event>> findEventsByWorkspacesId(@PathVariable("id") Integer id){
-        try {
-            List<Event> eventsList = eventsService.findEventsByWorkspacesId(id);
-            return new ResponseEntity<>(eventsList, HttpStatus.OK);
-        }catch (EventNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
     @PostMapping(path = "/events",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,17 +50,6 @@ public class EventController {
     public ResponseEntity<Event> deleteEventsById(@PathVariable("id") Integer id){
         try{
             eventsService.deleteEventsById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (EventNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @DeleteMapping("/deleteEventsByTitle/{title}")
-    public ResponseEntity<Event> deleteEventsById(@PathVariable("title") String title){
-        try{
-            eventsService.deleteEventsByTitle(title);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (EventNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

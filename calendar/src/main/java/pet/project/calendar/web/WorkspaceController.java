@@ -11,11 +11,10 @@ import pet.project.calendar.entity.Workspace;
 import pet.project.calendar.exception.WorkspaceNotFoundException;
 import pet.project.calendar.service.WorkspaceService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/entity-management/workspaces")
+@RequestMapping("/entity-management")
 public class WorkspaceController {
 
     private WorkspaceService workspacesService;
@@ -25,7 +24,7 @@ public class WorkspaceController {
         this.workspacesService = workspacesService;
     }
 
-    @GetMapping("/findWorkspaceById/{id}")
+    @GetMapping("/workspaces/{id}")
     public ResponseEntity<Workspace> findWorkspaceById(@PathVariable("id") Integer id){
         try{
             return new ResponseEntity<>(workspacesService.findWorkspaceById(id), HttpStatus.OK);
@@ -34,29 +33,7 @@ public class WorkspaceController {
         }
     }
 
-    @Deprecated
-    @GetMapping("/findWorkspacesByName/{name}")
-    public ResponseEntity<List<Workspace>> findWorkspacesByName(@PathVariable("name") String name){
-        try{
-            List<Workspace> workspacesList = workspacesService.findWorkspacesByName(name);
-            return new ResponseEntity<>(workspacesList, HttpStatus.OK);
-        }catch (WorkspaceNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @GetMapping("/findWorkspacesByUserId/{userId}")
-    public ResponseEntity<List<Workspace>> findWorkspacesByUserId(@PathVariable("userId") Integer userId){
-        try {
-            List<Workspace> workspacesList = workspacesService.findWorkspacesByUserId(userId);
-            return new ResponseEntity<>(workspacesList, HttpStatus.OK);
-        }catch (WorkspaceNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @PostMapping(path = "/add",
+    @PostMapping(path = "/workspaces",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Workspace> add(@RequestBody WorkspaceDto workspaceDto){
@@ -68,26 +45,15 @@ public class WorkspaceController {
         }
     }
 
-    @PutMapping("/updateWorkspace/{id}")
+    @PutMapping("/workspaces/{id}")
     public void updateWorkspaces(@PathVariable Integer id, @PathVariable Map<String, String> json){
         workspacesService.updateWorkspace(id, json.get("name"));
     }
 
-    @DeleteMapping("/deleteWorkspacesById/{id}")
+    @DeleteMapping("/workspaces/{id}")
     public ResponseEntity<Workspace> deleteWorkspacesById(@PathVariable("id") Integer id){
         try {
             workspacesService.deleteWorkspacesById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (WorkspaceNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @DeleteMapping("/deleteWorkspacesByName/{name}")
-    public ResponseEntity<Workspace> deleteWorkspacesByName(@PathVariable("name") String name){
-        try {
-            workspacesService.deleteWorkspacesByName(name);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (WorkspaceNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

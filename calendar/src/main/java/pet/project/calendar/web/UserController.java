@@ -11,7 +11,6 @@ import pet.project.calendar.entity.User;
 import pet.project.calendar.exception.UserNotFoundException;
 import pet.project.calendar.service.UserService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,17 +33,6 @@ public class UserController {
         }
     }
 
-    @Deprecated
-    @GetMapping("/users/{name}")
-    public ResponseEntity<List<User>> findUsersByName(@PathVariable("name") String name){
-        try {
-            List<User> usersList = usersService.findUsersByName(name);
-            return new ResponseEntity<>(usersList, HttpStatus.OK);
-        }catch (UserNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
     @PostMapping(path = "/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,12 +42,12 @@ public class UserController {
     }
 
 
-    @PutMapping("/updateUserName/{id}")
+    @PutMapping("/users/{id}")
     public void updateUserName(@PathVariable Integer id, @RequestBody Map<String, String> json){
         usersService.updateUserName(id, json.get("name"));
     }
 
-    @DeleteMapping("/deleteUsersById/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<User> deleteUsersById(@PathVariable("id") Integer id){
         try{
             usersService.deleteUsersById(id);

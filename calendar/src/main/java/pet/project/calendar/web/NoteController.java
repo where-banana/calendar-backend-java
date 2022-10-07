@@ -11,7 +11,6 @@ import pet.project.calendar.entity.Note;
 import pet.project.calendar.exception.NoteNotFoundException;
 import pet.project.calendar.service.NoteService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,28 +28,6 @@ public class NoteController {
     public ResponseEntity<Note> findNotesById(@PathVariable("id") Integer id){
         try{
             return new ResponseEntity<>(notesService.findNoteById(id), HttpStatus.OK);
-        }catch (NoteNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @GetMapping("/notes/{description}")
-    public ResponseEntity<List<Note>> findNotesByDescription(@PathVariable("description") String description){
-        try {
-            List<Note> notesList = notesService.findNotesByDescription(description);
-            return new ResponseEntity<>(notesList, HttpStatus.OK);
-        }catch (NoteNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @Deprecated
-    @GetMapping("/notes/{eventId}")
-    public ResponseEntity<List<Note>> findNotesByEventId(@PathVariable("eventId") Integer eventId){
-        try {
-            List<Note> notesList = notesService.findNotesByEventId(eventId);
-            return new ResponseEntity<>(notesList, HttpStatus.OK);
         }catch (NoteNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
