@@ -62,7 +62,7 @@ public class WorkspaceController {
     }
 
     @PutMapping("/workspaces/{id}")
-    public void updateWorkspaces(@PathVariable Integer id, @PathVariable Map<String, Object> json){
+    public void updateWorkspaces(@PathVariable Integer id, @RequestBody Map<String, Object> json){
         workspacesService.updateWorkspace(id, (String) json.get("name"));
     }
 
