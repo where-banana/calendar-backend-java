@@ -11,7 +11,10 @@ import pet.project.calendar.entity.Note;
 import pet.project.calendar.exception.NoteNotFoundException;
 import pet.project.calendar.service.NoteService;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/entity-management")
@@ -25,9 +28,17 @@ public class NoteController {
     }
 
     @GetMapping("/notes/{id}")
-    public ResponseEntity<Note> findNotesById(@PathVariable("id") Integer id){
+    public ResponseEntity<Map<String, Object>> findNotesById(@PathVariable("id") Integer id){
         try{
-            return new ResponseEntity<>(notesService.findNoteById(id), HttpStatus.OK);
+            Note note = notesService.findNoteById(id);
+            String description = note.getDescription();
+            Boolean checked = note.isChecked();
+
+            Map<String, Object> noteMap = new HashMap<>();
+            noteMap.put("description", description);
+            noteMap.put("checked", checked);
+
+            return new ResponseEntity<>(noteMap, HttpStatus.OK);
         }catch (NoteNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -42,8 +53,8 @@ public class NoteController {
     }
 
     @PutMapping("/notes/{id}")
-    public void updateNote(@PathVariable Integer id, @RequestBody Map<String, String> json){
-        notesService.updateNote(id, json.get("description"));
+    public void updateNote(@PathVariable Integer id, @RequestBody Map<String, Object> json){
+        notesService.updateNote(id, (String) json.get("description"), (Boolean) json.get("checked"), (Integer) json.get("eventId"));
     }
 
     @DeleteMapping("/notes/{id}")
@@ -51,6 +62,15 @@ public class NoteController {
         try {
             notesService.deleteNotesById(id);
             return new ResponseEntity<>(HttpStatus.OK);
+        }catch (NoteNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @GetMapping("/notes")
+    public ResponseEntity<List<Note>> findAll(){
+        try{
+            return new ResponseEntity<>(notesService.findAll(), HttpStatus.OK);
         }catch (NoteNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

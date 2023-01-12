@@ -47,19 +47,19 @@ services:
     networks:
       - testnetwork
 
-  ubuntu:
-    image: ubuntu
-    restart: always
-    hostname: aboba-bubuntu
-    tty: true
-    container_name: ubuntu
-
-  bubuntu:
-    image: ubuntu
-    restart: always
-    hostname: abobaboba
-    tty: true
-    container_name: bubuntu
+#  ubuntu:
+#    image: ubuntu
+#    restart: always
+#    hostname: aboba-bubuntu
+#    tty: true
+#    container_name: ubuntu
+#
+#  bubuntu:
+#    image: ubuntu
+#    restart: always
+#    hostname: abobaboba
+#    tty: true
+#    container_name: bubuntu
 
 volumes:
   postgres-volume:
@@ -67,4 +67,4 @@ volumes:
 networks:
   testnetwork:
     name: testnetwork
-    internal: true
+#    internal: true

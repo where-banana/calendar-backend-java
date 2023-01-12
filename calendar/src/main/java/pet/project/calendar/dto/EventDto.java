@@ -9,5 +9,6 @@ import lombok.*;
 @ToString
 public class EventDto {
     private String title;
+
     private Integer workspaceId;
 }

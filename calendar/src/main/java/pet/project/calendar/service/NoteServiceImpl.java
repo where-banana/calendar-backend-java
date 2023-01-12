@@ -54,13 +54,18 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void updateNote(Integer id, String description) {
-        notesRepository.updateNote(id, description);
+    public void updateNote(Integer id, String description, Boolean checked, Integer eventId) {
+        notesRepository.updateNote(id, description, checked, eventId);
     }
 
     @Override
     public void deleteNotesById(Integer id) {
         notesRepository.deleteNotesById(id);
+    }
+
+    @Override
+    public List<Note> findAll() {
+        return (List<Note>) notesRepository.findAll();
     }
 
 }

@@ -26,12 +26,16 @@ public interface NoteRepository extends CrudRepository<Note, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Note n " +
-           "SET n.description = :newDescription " +
+           "SET n.description = :description, n.checked = :checked, n.eventId.id = :eventId " +
            "WHERE n.id = :id")
     void updateNote(@Param("id") Integer id,
-                    @Param("newDescription") String description);
+                    @Param("description") String description,
+                    @Param("checked") Boolean checked,
+                    @Param("eventId") Integer eventId);
 
     @Transactional
     void deleteNotesById(Integer integer);
+
+    Iterable<Note> findAll();
 
 }

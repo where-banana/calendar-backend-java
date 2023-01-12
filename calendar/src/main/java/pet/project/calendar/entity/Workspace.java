@@ -3,6 +3,7 @@ package pet.project.calendar.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -18,32 +19,26 @@ public class Workspace {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User userId;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "workspacesId", cascade = CascadeType.ALL)
     private Collection<Event> events;
 
     public Workspace() {
     }
 
-    public Workspace(String name, User userId) {
+    public Workspace(String name) {
         this.name = name;
-        this.userId = userId;
     }
 
     @Override
     public String toString() {
-        return "Workspaces{" +
+        return "Workspace{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", userId=" + userId +
+                ", events=" + events +
                 '}';
     }
 }

@@ -52,8 +52,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void updateEvent(Integer id, String title) {
-        eventsRepository.updateEvent(id, title);
+    public void updateEvent(Integer id, String title, Integer workspaceId) {
+        eventsRepository.updateEvent(id, title, workspaceId);
     }
 
     @Override
@@ -64,5 +64,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEventsByTitle(String title) {
         eventsRepository.deleteEventsByTitle(title);
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return (List<Event>) eventsRepository.findAll();
     }
 }

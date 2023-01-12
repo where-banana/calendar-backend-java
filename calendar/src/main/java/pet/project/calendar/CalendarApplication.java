@@ -20,24 +20,11 @@ public class CalendarApplication {
 		SpringApplication.run(CalendarApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner test(UserRepository userRepository,
-								  WorkspaceRepository workspaceRepository,
+	public CommandLineRunner test(WorkspaceRepository workspaceRepository,
 								  EventRepository eventRepository,
 								  NoteRepository noteRepository){
 		return args -> {
 			//TODO Test delete method for all Repos
-//-------------------------------------Users-------------------
-//			Optional<User> us1 = userRepository.findUserById(5);
-//			us1.ifPresent(value -> log.info(value.toString()));
-//
-//			Iterable<User> us2 = userRepository.findAll();
-//			List<User> us2res = (List<User>) us2;
-//			log.info(us2res.toString());
-//
-//			Iterable<User> us3 = userRepository.findUsersByName("Danil");
-//			List<User> us3res = (List<User>) us3;
-//			log.info(us3res.toString());
-
 //---------------------------------Credentials------------------
 
 //			Optional<Credential> cred1 = credentialRepository.findCredentialsById(2);

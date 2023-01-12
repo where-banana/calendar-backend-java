@@ -14,11 +14,13 @@ public interface EventService {
 
     Event add(EventDto eventDto);
 
-    void updateEvent(Integer id, String title);
+    void updateEvent(Integer id, String title, Integer workspaceId);
 
     void deleteEventsById(Integer id);
 
     void deleteEventsByTitle(String title);
+
+    List<Event> findAll();
 
 
 }

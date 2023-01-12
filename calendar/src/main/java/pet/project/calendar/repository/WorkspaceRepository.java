@@ -13,15 +13,9 @@ import java.util.Optional;
 @Repository
 public interface WorkspaceRepository extends CrudRepository<Workspace, Integer> {
 
-    Optional<Workspace> findWorkspaceById(Integer integer);
+    Optional<Workspace> findWorkspaceById(Integer id);
 
     Iterable<Workspace> findWorkspacesByName(String string);
-
-    @Query("SELECT w FROM Workspace w " +
-           "JOIN User us " +
-           "ON w.userId = us " +
-           "WHERE us.id = :id")
-    Iterable<Workspace> findWorkspacesByUserId(@Param("id") Integer id);
 
     @Modifying
     @Transactional
@@ -36,4 +30,6 @@ public interface WorkspaceRepository extends CrudRepository<Workspace, Integer> 
 
     @Transactional
     void deleteWorkspacesByName(String string);
+
+    Iterable<Workspace> findAll();
 }

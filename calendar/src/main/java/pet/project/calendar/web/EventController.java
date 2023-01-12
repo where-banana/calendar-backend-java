@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pet.project.calendar.dto.EventDto;
 import pet.project.calendar.entity.Event;
+import pet.project.calendar.entity.Note;
+import pet.project.calendar.entity.Workspace;
 import pet.project.calendar.exception.EventNotFoundException;
 import pet.project.calendar.service.EventService;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,9 +30,26 @@ public class EventController {
     }
 
     @GetMapping("/events/{id}")
-    public ResponseEntity<Event> findEventsById(@PathVariable("id") Integer id){
+    public ResponseEntity<Map<String, Object>> findEventsById(@PathVariable("id") Integer id){
         try{
-            return new ResponseEntity<>(eventsService.findEventById(id), HttpStatus.OK);
+            Event event = eventsService.findEventById(id);
+            String title = event.getTitle();
+            Collection<Note> notes = event.getNotes();
+
+            Map<String, Object> eventMap = new HashMap<>();
+            eventMap.put("notes", notes);
+            eventMap.put("title", title);
+
+            return new ResponseEntity<>(eventMap, HttpStatus.OK);
+        }catch (EventNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> findAll(){
+        try {
+            return new ResponseEntity<>(eventsService.findAll(), HttpStatus.OK);
         }catch (EventNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -42,8 +64,8 @@ public class EventController {
     }
 
     @PutMapping("/events/{id}")
-    public void updateEvent(@PathVariable Integer id, @RequestBody Map<String, String> json){
-        eventsService.updateEvent(id, json.get("title"));
+    public void updateEvent(@PathVariable Integer id, @RequestBody Map<String, Object> json){
+        eventsService.updateEvent(id, (String) json.get("title"), (Integer) json.get("workspaceId"));
     }
 
     @DeleteMapping("/events/{id}")

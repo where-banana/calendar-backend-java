@@ -20,6 +20,9 @@ public class Note {
     @Column(name = "description", length = 100, nullable = false)
     private String description;
 
+    @Column(name = "checked")
+    private boolean checked;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
@@ -35,9 +38,11 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Notes{" +
+        return "Note{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
+                ", checked=" + checked +
+                ", eventId=" + eventId +
                 '}';
     }
 }

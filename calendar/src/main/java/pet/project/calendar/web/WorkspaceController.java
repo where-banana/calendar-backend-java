@@ -7,10 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pet.project.calendar.dto.WorkspaceDto;
+import pet.project.calendar.entity.Event;
 import pet.project.calendar.entity.Workspace;
 import pet.project.calendar.exception.WorkspaceNotFoundException;
 import pet.project.calendar.service.WorkspaceService;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,9 +28,22 @@ public class WorkspaceController {
     }
 
     @GetMapping("/workspaces/{id}")
-    public ResponseEntity<Workspace> findWorkspaceById(@PathVariable("id") Integer id){
+    public ResponseEntity<WorkspaceDto> findWorkspaceById(@PathVariable("id") Integer id){
         try{
-            return new ResponseEntity<>(workspacesService.findWorkspaceById(id), HttpStatus.OK);
+            Workspace ws = workspacesService.findWorkspaceById(id);
+            String name = ws.getName();
+            Collection<Event> events = ws.getEvents();
+            WorkspaceDto workspaceDto = new WorkspaceDto(name, events);
+            return new ResponseEntity<>(workspaceDto, HttpStatus.OK);
+        }catch (WorkspaceNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @GetMapping("/workspaces")
+    public ResponseEntity<List<Workspace>> findAllWorkspaces(){
+        try {
+            return new ResponseEntity<>(workspacesService.findAll(), HttpStatus.OK);
         }catch (WorkspaceNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -46,8 +62,8 @@ public class WorkspaceController {
     }
 
     @PutMapping("/workspaces/{id}")
-    public void updateWorkspaces(@PathVariable Integer id, @PathVariable Map<String, String> json){
-        workspacesService.updateWorkspace(id, json.get("name"));
+    public void updateWorkspaces(@PathVariable Integer id, @PathVariable Map<String, Object> json){
+        workspacesService.updateWorkspace(id, (String) json.get("name"));
     }
 
     @DeleteMapping("/workspaces/{id}")

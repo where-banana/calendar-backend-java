@@ -26,14 +26,17 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Event e " +
-           "SET e.title = :title " +
+           "SET e.title = :title, e.workspacesId.id =:workspaceId " +
            "WHERE e.id = :id")
     void updateEvent(@Param("id") Integer id,
-                     @Param("title") String title);
+                     @Param("title") String title,
+                     @Param("workspaceId") Integer workspaceId);
 
     @Transactional
     void deleteEventsById(Integer integer);
 
     @Transactional
     void deleteEventsByTitle(String name);
+
+    Iterable<Event> findAll();
 }

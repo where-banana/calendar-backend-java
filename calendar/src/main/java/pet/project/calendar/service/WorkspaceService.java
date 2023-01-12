@@ -10,8 +10,6 @@ public interface WorkspaceService {
 
     List<Workspace> findWorkspacesByName(String name);
 
-    List<Workspace> findWorkspacesByUserId(Integer id);
-
     Workspace add(WorkspaceDto workspaceDto);
 
     void updateWorkspace(Integer id, String name);
@@ -19,5 +17,7 @@ public interface WorkspaceService {
     void deleteWorkspacesById(Integer id);
 
     void deleteWorkspacesByName(String name);
+
+    List<Workspace> findAll();
 
 }

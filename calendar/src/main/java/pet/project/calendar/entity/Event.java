@@ -26,7 +26,7 @@ public class Event {
     @JoinColumn(name = "workspace_id")
     private Workspace workspacesId;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL)
     private Collection<Note> notes;
 

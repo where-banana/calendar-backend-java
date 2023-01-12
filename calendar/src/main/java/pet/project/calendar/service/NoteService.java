@@ -15,8 +15,10 @@ public interface NoteService {
 
     Note add(NoteDto noteDto);
 
-    void updateNote(Integer id, String description);
+    void updateNote(Integer id, String description, Boolean checked, Integer eventId);
 
     void deleteNotesById(Integer id);
+
+    List<Note> findAll();
 
 }
