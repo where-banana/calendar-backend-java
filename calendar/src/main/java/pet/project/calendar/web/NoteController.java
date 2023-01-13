@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/entity-management")
 public class NoteController {
 
